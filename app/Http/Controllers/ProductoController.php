@@ -6,6 +6,7 @@ use App\Http\Requests\BuscarRequest;
 use App\Http\Requests\productoRequest;
 use App\Models\Categoria;
 use App\Models\Producto;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session; // Agrega esta línea
@@ -15,6 +16,7 @@ class ProductoController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public $total=0;
     public function index(Request $request)
     {
         $categoria=Categoria::all();
@@ -107,5 +109,20 @@ class ProductoController extends Controller
         $producto->save();
         return back();
     }
+    public function VentasPorFecha(Request $request)
+{
+    $fecha = Carbon::parse($request->fecha);
 
+    // Utilizando Query Builder para obtener el total en dólares de las ventas por fecha
+    $totalVentasDolares = DB::table('productos')
+        ->join('categorias', 'productos.categoria_id', '=', 'categorias.id')
+        ->where('productos.estado', 1)
+        ->where('categorias.nombre', 'LIKE', '%' . $request->buscar . '%')
+        ->where('productos.fechaVencimiento', $fecha->format('Y-m-d')) // Asegúrate de ajustar el formato según tu base de datos
+        ->sum(DB::raw('productos.stock * productos.precio'));
+
+    return view('productos.totalventas', compact('totalVentasDolares', 'fecha'));
 }
+}
+
+

@@ -27,3 +27,5 @@ Route::middleware(['web'])->group(function () {
     route::get('/ventaProductos/{producto}',[ProductoController::class,'venta'])->name('producto.venta');
 Route::post('/productos/{producto}/venta', [ProductoController::class,'realizarVenta'])->name('productos.realizarVenta');
 });
+Route::get('/total-ventas-por-fecha', [ProductoController::class,'VentasPorFecha'])->name('final');
+

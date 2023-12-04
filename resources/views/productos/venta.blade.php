@@ -31,4 +31,5 @@
 
     <!-- Resto del contenido de la vista de productos -->
 </div>
+<a href="{{route('final')}}"><button >total de ventas por fecha de hoy</button></a>
 @endsection
