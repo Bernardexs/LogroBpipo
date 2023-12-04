@@ -69,6 +69,11 @@
         </form>
     </div>
 </div>
+<div class="container">
+   
+
+    <!-- Resto del contenido de la vista de productos -->
+</div>
 <table class="table table-striped projects">
     <thead>
         <tr>
@@ -103,7 +108,7 @@ Producto            </th>
                 {{$item->id}}
             </td>
             <td>
-               {{$item->nombre}}
+               {{$item->nombre}}<br><a href="{{route('producto.venta',$item->id)}}" style="color: red">Venta de producto</a>
             </td>
             <td>
                 {{$item->fechaVencimiento}}

@@ -96,7 +96,7 @@
               <li class="nav-item">
                 <a href="" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Registro de libros</p>
+                  <p>Venta de productos</p>
                 </a>
               </li>
 
@@ -140,7 +140,7 @@
 
         <!-- /.row -->
 
-
+        @include('layouts.partials.flash-message') 
 @yield('content')
 
         <!-- /.row -->

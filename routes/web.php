@@ -20,3 +20,10 @@ Route::get('/', function () {
 route::get('/mostrarProducto',[ProductoController::class,'index'])->name('producto.index');
 route::post('/productostore',[ProductoController::class,'store'])->name('producto.store');
 route::delete('/productodelete/{producto}',[ProductoController::class,'destroy'])->name('producto.delete');
+route::get('/ventaProductos/{producto}',[ProductoController::class,'venta'])->name('producto.venta');
+Route::post('/productos/{producto}/venta', [ProductoController::class,'realizarVenta'])->name('productos.realizarVenta');
+Route::middleware(['web'])->group(function () {
+    // tus rutas aquí
+    route::get('/ventaProductos/{producto}',[ProductoController::class,'venta'])->name('producto.venta');
+Route::post('/productos/{producto}/venta', [ProductoController::class,'realizarVenta'])->name('productos.realizarVenta');
+});

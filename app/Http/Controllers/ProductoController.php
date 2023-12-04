@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session; // Agrega esta línea
 
 class ProductoController extends Controller
 {
@@ -50,9 +51,35 @@ class ProductoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Producto $producto)
+    public function venta(Producto $producto)
+
     {
-        //
+        $mensaje='';
+        return view("productos.venta", compact("producto"),compact("mensaje"));
+    }
+    public function realizarVenta(Request $request, Producto $producto)
+    {
+        $request->validate([
+            'cantidad' => 'required|numeric|min:1',
+        ]);
+
+        // Variable para almacenar el mensaje
+        $mensaje = '';
+        // Verificar si hay suficiente stock
+        if ($producto->stock >= $request->cantidad) {
+            // Actualizar el stock
+            $producto->stock -= $request->cantidad;
+            $producto->save();
+            // Configurar el mensaje de éxito
+            $mensaje = 'Venta realizada con éxito.';
+        } else {
+            $mensaje="no hay suficientes productos en stock";
+            // Configurar el mensaje de alerta si no hay suficiente stock
+
+        }
+
+        // Pasar el mensaje como variable a la vista
+        return view('productos.venta', compact('producto', 'mensaje'));
     }
 
     /**
@@ -80,4 +107,5 @@ class ProductoController extends Controller
         $producto->save();
         return back();
     }
+
 }
