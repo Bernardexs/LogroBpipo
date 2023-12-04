@@ -124,7 +124,7 @@ Producto            </th>
                     </i>
                     Edit
                 </a>
-                <form action="" method="POST" >
+                <form action="{{route('producto.delete',$item->id)}}" method="POST" >
                     @csrf
                     @method('DELETE')
 

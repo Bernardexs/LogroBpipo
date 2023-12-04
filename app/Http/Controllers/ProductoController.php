@@ -76,6 +76,8 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->estado=false;
+        $producto->save();
+        return back();
     }
 }
