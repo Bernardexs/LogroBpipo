@@ -2,20 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BuscarRequest;
 use App\Http\Requests\productoRequest;
 use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $categoria=Categoria::all();
-        return view("productos.index",compact("categoria"));
+        $producto=DB::table("categorias")
+        ->join('productos', 'categorias.id', '=', 'productos.categoria_id')
+
+        ->where('productos.estado', 1)
+
+        ->where('categorias.nombre', 'LIKE','%'.$request->buscar.'%')
+        ->select('productos.id','productos.nombre','productos.fechaVencimiento','productos.precio', 'productos.stock','categorias.nombre as categoria')
+        ->get();
+           return view("productos.index",compact("categoria"),compact("producto"));
     }
 
     /**

@@ -55,4 +55,91 @@
       </div>
     </form>
 </div>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <form action="">
+            <div class="input-group">
+                <input name="buscar" type="search" class="form-control form-control-lg" placeholder="Buscar por autor">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-lg btn-default">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table table-striped projects">
+    <thead>
+        <tr>
+            <th style="width: 1%">
+                #
+            </th>
+            <th style="width: 20%">
+
+Producto            </th>
+            <th style="width: 20%">
+                Fecha de vencimiento
+            </th>
+            <th style="width: 20%">
+                precio
+            </th>
+            <th style="width: 20%">
+                cantidad en stock
+            </th>
+            <th style="width: 20%">
+                categoria
+            </th>
+            <th style="width: 30%">
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($producto as $item )
+
+        <tr>
+            <td>
+                {{$item->id}}
+            </td>
+            <td>
+               {{$item->nombre}}
+            </td>
+            <td>
+                {{$item->fechaVencimiento}}
+             </td>
+             <td>
+                {{$item->precio}}
+             </td>
+             <td>
+                {{$item->stock}}
+             </td>
+             <td>
+                {{$item->categoria}}
+             </td>
+            <td class="project-actions ">
+
+                <a class="btn btn-info btn-sm" href="">
+                    <i class="fas fa-pencil-alt">
+                    </i>
+                    Edit
+                </a>
+                <form action="" method="POST" >
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-danger btn-sm" >
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
+            </td>
+
+        </tr>
+
+
+        @endforeach
+
+
+    </tbody>
+</table>
 @endsection

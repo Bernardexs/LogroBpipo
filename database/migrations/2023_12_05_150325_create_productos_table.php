@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('fechaVencimiento');
             $table->integer('precio');
             $table->integer('stock');
+            $table->boolean('estado')->default(true);
             $table->foreignId('categoria_id')->constrained('categorias');
 
 
